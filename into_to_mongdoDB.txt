@@ -1,0 +1,84 @@
+1. Create a database called 'my_first_db'.
+	> use my_first_db;
+
+2. Create students collection.
+	> db.createCollection('students');
+
+3. Each document you insert into this collection should have the following format: {name: STRING, home_state: STRING, lucky_number: NUMBER, birthday: {month: NUMBER, day: NUMBER, year: NUMBER}}
+
+4. Create 5 students with the appropriate info.
+	> db.my_first_db.insert({name: "minh1", home_state: "state1", lucky_number: 1, birthday: {month: 1, day: 1, year: 2001}})
+
+	> db.my_first_db.insert({name: "minh2", home_state: "state2", lucky_number: 2, birthday: {month: 2, day: 2, year: 2002}})	
+
+	> db.my_first_db.insert({name: "minh3", home_state: "state3", lucky_number: 3, birthday: {month: 3, day: 3, year: 2003}})
+
+	> db.my_first_db.insert({name: "minh4", home_state: "state4", lucky_number: 4, birthday: {month: 4, day: 4, year: 2004}})
+
+	> db.my_first_db.insert({name: "minh5", home_state: "state5", lucky_number: 5, birthday: {month: 5, day: 5, year: 2005}})
+5. Get all students.
+	> db.my_first_db.find();
+
+6. Retrieve all students who are from California (San Jose Dojo) or Washington (Seattle Dojo).
+	> db.my_first_db.find({$or: [{home_state: 'state2'}, {home_state: 'state3'}]});
+
+7. Get all students whose lucky number is:
+	1. greater than 3
+	> db.my_first_db.find({lucky_number: {$gt: 3}});
+
+	2. less than or equal to 10
+	> db.my_first_db.find({lucky_number: {$lte: 10}});
+
+	3. between 1 and 9 (inclusive)
+	> db.my_first_db.find({$and: [{lucky_number: {$gte: 1}}, {lucky_number: {$lte: 9}}]});
+
+
+8. Add a field to each student collection called 'interests' that is an ARRAY.  It should contain the following entries: 'coding', 'brunch', 'MongoDB'. Do this in ONE operation.
+	> db.my_first_db.update({name: 'minh1'}, {$push: {interests: ['coding', 'brunch', 'mongoDB']}});
+	> db.my_first_db.update({name: 'minh2'}, {$push: {interests: ['coding', 'brunch', 'mongoDB']}});
+	> db.my_first_db.update({name: 'minh3'}, {$push: {interests: ['coding', 'brunch', 'mongoDB']}});
+	> db.my_first_db.update({name: 'minh4'}, {$push: {interests: ['coding', 'brunch', 'mongoDB']}});
+	> db.my_first_db.update({name: 'minh5'}, {$push: {interests: ['coding', 'brunch', 'mongoDB']}});
+
+
+9. Add some unique interests for each particular students into each of their interest arrays.
+	> db.my_first_db.update({name: 'minh5'}, {$set: {interests: ['playing', 'singing', 'mysql']}});
+	> db.my_first_db.update({name: 'minh3'}, {$set: {interests: ['learning', 'singing', 'mysql']}});
+	> db.my_first_db.update({name: 'minh2'}, {$set: {interests: ['eating', 'singing', 'MEAN']}});
+	> db.my_first_db.update({name: 'minh4'}, {$set: {interests: ['chattig', 'ruby']}});
+	> db.my_first_db.update({name: 'minh1'}, {$set: {interests: ['yelling', 'dancing', 'iOS']}});
+
+
+10. Add the interest 'taxes' into someone's interest array.
+	> db.my_first_db.update({name: 'minh2'}, {$push: {interests: 'taxes'}});
+
+11. Remove the 'taxes' interest you just added.
+	> db.my_first_db.update({name: 'minh2'}, {$pop: {interests: 'taxes'}});
+
+12. Remove all students who are from California (or Washington).
+	> db.my_first_db.remove({$or: [{home_state: 'state2'}, {home_state: 'state3'}]});
+
+13. Remove a user by name. 
+	> db.my_first_db.remove({name: 'minh5'}, true);
+
+14. Remove a student whose lucky number is greater than 5 (JUST ONE)
+	> db.my_first_db.remove({lucky_number: {$gt: 5}}, true);
+
+15. Add a field to each student collection called 'number_of_belts' and set it to 0.
+	> db.my_first_db.update({}, {$set: {number_of_belts_and: 0}}, false, true);
+	> db.my_first_db.updateMany({}, {$set: {number_of_belts_and_hello: 1}});
+
+16. Increment this field by 1 for all students in Washington (Seattle Dojo).
+	> db.my_first_db.updateMany({}, {$set: {number_of_belts_and_hello: 2}});
+
+17. Rename the 'number_of_belts' field to 'belts_earned'
+	> db.my_first_db.updateMany({}, {$rename: {"number_of_belts_and_hello": "belts_earned"}});
+
+18. Remove the 'lucky_number' field.
+	> db.my_first_db.updateMany({}, {$unset: {lucky_number: ""}});
+
+19. Add a 'updated_on' field, and set the value as the current date.
+	> db.my_first_db.updateMany({}, {$currentDate: {update_on: {$type: 'date'}}})
+
+
+
