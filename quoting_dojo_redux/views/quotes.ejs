@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>All quotes</title>
+</head>
+<body>
+	<h1>Here are the awesome quotes</h1>
+	<% for (var i = 0; i < quotes.length; i++){ %>
+	<div>"<%= quotes[i].quote %>"</div>
+	<div><%= quotes[i].name %> at <%= quotes[i].createdAt %></div>
+	<button><a href="/add_like/<%= quotes[i]._id %>/<%= quotes[i].like %>">Like</a></button><%= quotes[i].like %>
+	<div>-------------------------------------------</div>
+	<% } %>
+	<button><a href="/">Back</a></button>
+</body>
+</html>
