@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Index</title>
+	<style type="text/css">
+		.message{
+			margin: 20px;
+			font-size: 20px;
+		}
+		.comment{
+			font-size: 15px;
+			margin-left: 30px;
+		}
+		li{
+			list-style-type: none;
+		}
+	</style>
+</head>
+<body>
+	<h2>The Dojo Message Board</h2>
+	<form action="/post" method="post">
+		Name: <input type="text" name="name">
+		Message: <input type="text" name="message">
+		<input type="submit" value="Post message">
+	</form>
+	<% for (var i = 0; i < posts.length; i++){ %>
+		<div class="message">
+			<li>Name: <%= posts[i].name %></li>
+			<li>Message: <%= posts[i].message %></li>
+			<% for (var j = 0; j < posts[i].comment.length; j++){ %>	
+			<div class="comment">
+				<li>Name: <%= posts[i].comment[j].name %></li>
+				<li>Comment: <%= posts[i].comment[j].comment %></li>
+			</div>
+				
+			<% } %>
+			<form class="comment" action="post/<%= posts[i]._id %>" method="post">
+				Name: <input type="text" name="name">
+				Comment: <input type="text" name="comment">
+				<input type="submit" value="Post comment">
+			</form>
+		</div>
+	<% } %>
+
+</body>
+</html>
